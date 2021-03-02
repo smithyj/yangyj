@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/afocus/captcha"
 	"image/color"
+	"strings"
 	"time"
 	"yangyj/backend/assets"
 	"yangyj/backend/pkg/redis"
@@ -50,7 +51,7 @@ func (c *Captcha) Verify(id, code string) bool {
 	if err != nil {
 		return false
 	}
-	if value == code {
+	if strings.ToLower(value) == strings.ToLower(code) {
 		return true
 	}
 	return false
