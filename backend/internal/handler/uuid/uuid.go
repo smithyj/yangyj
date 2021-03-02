@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type Handler struct {}
+type Handler struct{}
 
 func (handler *Handler) UUID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {

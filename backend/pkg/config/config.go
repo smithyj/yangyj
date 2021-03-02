@@ -7,7 +7,9 @@ import (
 	"yangyj/backend/configs"
 )
 
-var Config *configs.Config
+type Setting configs.Config
+
+var Config *Setting
 
 func init() {
 	var err error

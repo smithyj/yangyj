@@ -3,7 +3,17 @@ port: 8080
 db:
   dsn: root:123456@tcp(127.0.0.1:3306)/yangyj?charset=utf8mb4&parseTime=True&loc=Local
 redis:
-  host: 127.0.0.1
-  port: 6379
-  pwd:
-  db: 0
+  default:
+    host: 127.0.0.1
+    port: 6379
+    pwd:
+    db: 1
+  cache:
+    host: 127.0.0.1
+    port: 6379
+    pwd:
+    db: 1
+cache:
+  type: redis
+  # 过期时间，分钟
+  expired: 10

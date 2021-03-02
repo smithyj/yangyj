@@ -10,7 +10,8 @@ import (
 	"time"
 	"yangyj/backend/internal/router"
 	"yangyj/backend/pkg/config"
-	_ "yangyj/backend/pkg/config"
+	// 初始化
+	_ "yangyj/backend/pkg/sys"
 )
 
 func main() {
