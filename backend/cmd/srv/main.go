@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"yangyj/internal/router"
+	"yangyj/backend/internal/router"
 )
 
 func main()  {

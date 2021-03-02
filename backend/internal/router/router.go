@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"yangyj/internal/handler/uuid"
+	"yangyj/backend/internal/handler/uuid"
 )
 
 type router struct {}
