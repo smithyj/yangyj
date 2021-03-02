@@ -35,7 +35,7 @@ func (c *Captcha) Image(w, h int) (img *captcha.Image, code string, err error) {
 		color.RGBA{R: 60, G: 81, B: 241, A: 255},
 	)
 
-	img, code = cc.Create(6, captcha.ALL)
+	img, code = cc.Create(6, captcha.CLEAR)
 	err = c.Create(code)
 	return
 }
