@@ -2,17 +2,24 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 	"yangyj/backend/internal/router"
+	"yangyj/backend/pkg/config"
+	_ "yangyj/backend/pkg/config"
 )
 
-func main()  {
+func main() {
+	addr := fmt.Sprintf("localhost:%v", config.Config.Port)
+
+	log.Printf("Listening to %s\n", addr)
+
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    addr,
 		Handler: router.New(),
 	}
 
