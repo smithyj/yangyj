@@ -12,8 +12,8 @@ type Config struct {
 		DSN string
 	}
 	Redis struct {
-		Default RedisConfig
-		Cache   RedisConfig
+		Default redisConfig
+		Cache   redisConfig
 	}
 	Cache struct {
 		Type string
@@ -22,7 +22,7 @@ type Config struct {
 	}
 }
 
-type RedisConfig struct {
+type redisConfig struct {
 	Host string
 	Port int
 	Pwd  string
