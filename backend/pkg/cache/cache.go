@@ -13,6 +13,7 @@ const (
 type cache interface {
 	Get(key string, obj interface{}) (err error)
 	Set(key string, value interface{}, expiration time.Duration) (result bool)
+	Del(keys ...string) (result bool)
 }
 
 var Cache cache

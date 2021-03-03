@@ -29,6 +29,14 @@ func (c *Client) Set(key string, value interface{}, expiration time.Duration) *r
 	return c.client.Set(c.ctx, key, value, expiration)
 }
 
+func (c *Client) Del(keys ...string) *redis.IntCmd {
+	tmp := make([]string, 0, len(keys))
+	for _, v := range keys {
+		tmp = append(tmp, fmt.Sprintf(PREFIX, v))
+	}
+	return c.client.Del(c.ctx, tmp...)
+}
+
 func init() {
 	cfg := config.Config.Redis.Default
 	client, err := New(

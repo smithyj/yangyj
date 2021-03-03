@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/afocus/captcha"
 	"image/color"
+	"log"
 	"strings"
 	"time"
 	"yangyj/backend/assets"
@@ -42,19 +43,36 @@ func (c *Captcha) Image(w, h int) (img *captcha.Image, code string, err error) {
 }
 
 func (c *Captcha) Write(code string) (err error) {
-	err = redis.Redis.Set(fmt.Sprintf(PREFIX, c.id), code, 10*60*time.Second).Err()
+	key := fmt.Sprintf(PREFIX, c.id)
+	expiration := 10*60*time.Second
+	err = redis.Redis.Set(key, code, expiration).Err()
 	return
 }
 
 func (c *Captcha) Verify(id, code string) bool {
-	value, err := redis.Redis.Get(fmt.Sprintf(PREFIX, id)).Result()
+	key := fmt.Sprintf(PREFIX, id)
+	value, err := redis.Redis.Get(key).Result()
 	if err != nil {
 		return false
 	}
 	if strings.ToLower(value) == strings.ToLower(code) {
+		// 验证成功，删除验证码
+		if result := c.Del(id); !result {
+			return false
+		}
 		return true
 	}
 	return false
+}
+
+func (c *Captcha) Del(id string) bool {
+	key := fmt.Sprintf(PREFIX, id)
+	count, err := redis.Redis.Del(key).Result()
+	log.Println(count)
+	if err != nil {
+		return false
+	}
+	return true
 }
 
 func New(id string) *Captcha {

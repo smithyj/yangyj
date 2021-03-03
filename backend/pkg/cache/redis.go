@@ -34,6 +34,17 @@ func (c *redisCache) Set(key string, value interface{}, expiration time.Duration
 	return true
 }
 
+func (c *redisCache) Del(keys ...string) bool {
+	tmp := make([]string, 0, len(keys))
+	for _, v := range keys {
+		tmp = append(tmp, fmt.Sprintf(PREFIX, v))
+	}
+	if _, err := c.client.Del(tmp...).Result(); err != nil {
+		return false
+	}
+	return true
+}
+
 func newRedisCache() (cache *redisCache, err error) {
 	cfg := config.Config.Redis.Cache
 	client, err := redis.New(
