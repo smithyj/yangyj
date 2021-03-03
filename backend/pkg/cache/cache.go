@@ -6,10 +6,6 @@ import (
 	"yangyj/backend/pkg/config"
 )
 
-const (
-	PREFIX = "cache:%s"
-)
-
 type cache interface {
 	Get(key string, obj interface{}) (err error)
 	Set(key string, value interface{}, expiration time.Duration) (result bool)

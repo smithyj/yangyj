@@ -8,12 +8,15 @@ redis:
     port: 6379
     pwd:
     db: 1
+    prefix: yangyj
   cache:
     host: 127.0.0.1
     port: 6379
     pwd:
     db: 1
+    prefix: yangyj
 cache:
   type: redis
   # 过期时间，分钟
   expired: 10
+  prefix: cache

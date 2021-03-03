@@ -12,19 +12,21 @@ type Config struct {
 		DSN string
 	}
 	Redis struct {
-		Default redisConfig
-		Cache   redisConfig
+		Default RedisConfig
+		Cache   RedisConfig
 	}
 	Cache struct {
 		Type string
 		// 过期时间，分钟
 		Expired int64
+		Prefix  string
 	}
 }
 
-type redisConfig struct {
-	Host string
-	Port int
-	Pwd  string
-	Db   int
+type RedisConfig struct {
+	Host   string
+	Port   int
+	Pwd    string
+	Db     int
+	Prefix string
 }

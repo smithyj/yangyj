@@ -10,11 +10,18 @@ import (
 
 type redisCache struct {
 	client *redis.Client
+	prefix string
+}
+
+func (c *redisCache) buildKey(key string) string {
+	if c.prefix == "" {
+		return key
+	}
+	return fmt.Sprintf("%v:%v", c.prefix, key)
 }
 
 func (c *redisCache) Get(key string, obj interface{}) (err error) {
-	key = fmt.Sprintf(PREFIX, key)
-	result, err := c.client.Get(key).Result()
+	result, err := c.client.Get(c.buildKey(key)).Result()
 	if err == nil {
 		err = json.Unmarshal([]byte(result), obj)
 	}
@@ -22,13 +29,11 @@ func (c *redisCache) Get(key string, obj interface{}) (err error) {
 }
 
 func (c *redisCache) Set(key string, value interface{}, expiration time.Duration) bool {
-	var err error
-	key = fmt.Sprintf(PREFIX, key)
 	v, err := json.Marshal(value)
 	if err != nil {
 		return false
 	}
-	if err = c.client.Set(key, v, expiration).Err(); err != nil {
+	if err := c.client.Set(c.buildKey(key), v, expiration).Err(); err != nil {
 		return false
 	}
 	return true
@@ -36,8 +41,8 @@ func (c *redisCache) Set(key string, value interface{}, expiration time.Duration
 
 func (c *redisCache) Del(keys ...string) bool {
 	tmp := make([]string, 0, len(keys))
-	for _, v := range keys {
-		tmp = append(tmp, fmt.Sprintf(PREFIX, v))
+	for _, key := range keys {
+		tmp = append(tmp, c.buildKey(key))
 	}
 	if _, err := c.client.Del(tmp...).Result(); err != nil {
 		return false
@@ -46,18 +51,15 @@ func (c *redisCache) Del(keys ...string) bool {
 }
 
 func newRedisCache() (cache *redisCache, err error) {
-	cfg := config.Config.Redis.Cache
-	client, err := redis.New(
-		cfg.Host,
-		cfg.Port,
-		cfg.Pwd,
-		cfg.Db,
-	)
+	redisCfg := config.Config.Redis.Cache
+	cacheCfg := config.Config.Cache
+	client, err := redis.New(&redisCfg)
 	if err != nil {
 		return
 	}
 	cache = &redisCache{
 		client: client,
+		prefix: cacheCfg.Prefix,
 	}
 	return
 }
