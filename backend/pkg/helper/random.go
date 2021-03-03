@@ -11,19 +11,20 @@ func RandomStr(size int, kind int) string {
 	// kind = 2，大写字母
 	fontKinds := [][]int{{10, 48}, {26, 97}, {26, 65}}
 	letters := []byte("34578acdefghjkmnpqstwxyABCDEFGHJKMNPQRSVWXY")
-	ikind, result := kind, make([]byte, size)
+	ikind, result := kind, make([]byte, 0, size)
 	isAll := kind > 2 || kind < 0
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < size; i++ {
+		// 不易混淆字符模式：重新生成字符
+		if kind == 4 {
+			result = append(result, letters[rand.Intn(len(letters))])
+			continue
+		}
 		if isAll {
 			ikind = rand.Intn(3)
 		}
 		scope, base := fontKinds[ikind][0], fontKinds[ikind][1]
-		result[i] = uint8(base + rand.Intn(scope))
-		// 不易混淆字符模式：重新生成字符
-		if kind == 4 {
-			result[i] = letters[rand.Intn(len(letters))]
-		}
+		result = append(result, uint8(base + rand.Intn(scope)))
 	}
 	return string(result)
 }
