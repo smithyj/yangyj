@@ -1,22 +1,29 @@
-mode: release
+# release / debug
+mode: debug
+# server port
 port: 8080
+# db config
 db:
   dsn: root:123456@tcp(127.0.0.1:3306)/yangyj?charset=utf8mb4&parseTime=True&loc=Local
+# redis config
 redis:
   default:
     host: 127.0.0.1
     port: 6379
     pwd:
-    db: 0
+    db: 1
     prefix: yangyj
   cache:
     host: 127.0.0.1
     port: 6379
     pwd:
-    db: 0
+    db: 1
     prefix: yangyj
+# cache config
 cache:
   type: redis
-  # 过期时间，分钟
-  expired: 10
   prefix: cache
+# captcha config
+captcha:
+  expired: 10
+  prefix: captcha

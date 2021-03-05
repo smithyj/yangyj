@@ -4,3 +4,7 @@
 # Dev
 air.log
 tmp
+
+# Project
+backend/configs/*.yaml
+!example.config_dev.yaml
