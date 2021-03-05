@@ -17,10 +17,12 @@ type Config struct {
 	}
 	Cache struct {
 		Type string
-		// 过期时间，分钟
-		Expired int64
 		Prefix  string
 	}
+	Captcha struct {
+		Expired int // 分钟
+		Prefix string
+	} `yaml:"captcha"`
 }
 
 type RedisConfig struct {

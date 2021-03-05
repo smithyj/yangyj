@@ -19,6 +19,8 @@ func main() {
 
 	log.Printf("Listening to %s\n", addr)
 
+	log.Println(config.Config)
+
 	srv := &http.Server{
 		Addr:    addr,
 		Handler: router.New(),

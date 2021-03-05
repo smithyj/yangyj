@@ -9,7 +9,10 @@ func RandomStr(size int, kind int) string {
 	// kind = 0，数字
 	// kind = 1，小写字母
 	// kind = 2，大写字母
+	// kind = 3, 全部
+	// kind = 4, 自定义字符
 	fontKinds := [][]int{{10, 48}, {26, 97}, {26, 65}}
+	// 自定义字符集合
 	letters := []byte("34578acdefghjkmnpqstwxyABCDEFGHJKMNPQRSVWXY")
 	ikind, result := kind, make([]byte, 0, size)
 	isAll := kind > 2 || kind < 0
