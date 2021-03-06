@@ -8,18 +8,19 @@ import (
 
 type cache interface {
 	Get(key string, obj interface{}) (err error)
-	Set(key string, value interface{}, expiration time.Duration) (result bool)
-	Del(keys ...string) (result bool)
+	Set(key string, value interface{}, expiration time.Duration) (ok bool)
+	Del(keys ...string) (ok bool)
 }
 
 var Cache cache
 
 func init() {
+	var err error
+	var c *redisCache
 	cfg := config.Config.Cache
 	switch cfg.Type {
 	case "redis":
-		c, err := newRedisCache()
-		if err != nil {
+		if c, err = newRedisCache(); err != nil {
 			panic(err)
 		}
 		Cache = c

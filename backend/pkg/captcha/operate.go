@@ -26,27 +26,27 @@ func (v *operate) create(id, code string) (err error) {
 	return
 }
 
-func (v *operate) del(id string) (num int64, result bool) {
-	num, err := redis.Redis.Del(v.buildKey(id)).Result()
-	if err != nil {
-		return num, false
+func (v *operate) del(id string) (num int64, ok bool) {
+	var err error
+	if num, err = redis.Redis.Del(v.buildKey(id)).Result(); err != nil {
+		return
 	}
-	return num, true
+	ok = true
+	return
 }
 
-func (v *operate) verify(id, code string) bool {
-	value, err := redis.Redis.Get(v.buildKey(id)).Result()
-	if err != nil {
-		return false
+func (v *operate) verify(id, code string) (ok bool) {
+	var err error
+	var value string
+	if value, err = redis.Redis.Get(v.buildKey(id)).Result(); err != nil {
+		return
 	}
 	if strings.ToLower(value) == strings.ToLower(code) {
 		// 验证成功，删除验证码
-		if _, ok := v.del(id); !ok {
-			return false
-		}
-		return true
+		_, ok = v.del(id)
+		return
 	}
-	return false
+	return
 }
 
 func newOperate() *operate {

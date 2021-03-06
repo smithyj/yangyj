@@ -7,4 +7,4 @@ tmp
 
 # Project
 backend/configs/*.yaml
-!example.config_dev.yaml
+!example.config.yaml

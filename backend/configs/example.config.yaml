@@ -27,3 +27,9 @@ cache:
 captcha:
   expired: 10
   prefix: captcha
+# mail config multiple
+email:
+  - host: smtp.exmail.qq.com
+    port: 25
+    username: xxx@xxx.com
+    password: xxx

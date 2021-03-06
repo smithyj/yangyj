@@ -1,0 +1,23 @@
+// 获取UUID
+GET {{host}}/uuid
+Accept: application/json
+
+###
+
+// 获取图片验证码
+GET {{host}}/captcha/image/9018af45-35c3-4f81-a2bb-b1517bd0653a
+Accept: image/png
+
+###
+
+// 发送邮件验证码
+POST {{host}}/captcha/email
+Content-Type: application/json
+
+{
+  "address": "624508914@qq.com",
+  "uuid": "9018af45-35c3-4f81-a2bb-b1517bd0653a",
+  "code": "teBa3k"
+}
+
+###

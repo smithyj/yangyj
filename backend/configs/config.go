@@ -23,6 +23,7 @@ type Config struct {
 		Expired int // 分钟
 		Prefix string
 	} `yaml:"captcha"`
+	Email []EmailConfig
 }
 
 type RedisConfig struct {
@@ -31,4 +32,11 @@ type RedisConfig struct {
 	Pwd    string
 	Db     int
 	Prefix string
+}
+
+type EmailConfig struct {
+	Host string
+	Port int
+	Username string
+	Password string
 }
