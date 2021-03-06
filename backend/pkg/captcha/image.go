@@ -23,13 +23,13 @@ func (c *imageCaptcha) buildKey(key string) string {
 //
 // h: 高度
 func (c *imageCaptcha) Create(id string, w, h int) (img *captcha.Image, err error) {
-	var bytes []byte
+	var byteSlice []byte
 	filename := "font/comic/comic.ttf"
-	if bytes, err = assets.FS.ReadFile(filename); err != nil {
+	if byteSlice, err = assets.FS.ReadFile(filename); err != nil {
 		return
 	}
 	draw := captcha.New()
-	_ = draw.AddFontFromBytes(bytes)
+	_ = draw.AddFontFromBytes(byteSlice)
 	// 设置验证码大小
 	draw.SetSize(w, h)
 	// 设置干扰强度

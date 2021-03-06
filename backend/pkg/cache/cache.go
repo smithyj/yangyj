@@ -18,7 +18,7 @@ func init() {
 	var err error
 	var c *redisCache
 	cfg := config.Config.Cache
-	switch cfg.Type {
+	switch cfg.Kind {
 	case "redis":
 		if c, err = newRedisCache(); err != nil {
 			panic(err)

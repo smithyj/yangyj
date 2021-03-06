@@ -33,3 +33,14 @@ email:
     port: 25
     username: xxx@xxx.com
     password: xxx
+# sms config multiple source
+sms:
+  kind: smsbao
+  # apply address http://smsbao.com
+  smsbao:
+    username: xxx
+    password: xxx
+  # apply address https://aliyun.com
+  aliyun:
+    appid: xxx
+    appsecret: xxx

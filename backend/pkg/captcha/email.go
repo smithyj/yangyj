@@ -22,7 +22,7 @@ func (c *emailCaptcha) Create(address string) (err error) {
 	if err = c.op.create(c.buildKey(address), code); err != nil {
 		return
 	}
-	err = email.SendCaptchaCode(address, code)
+	err = email.New().CaptchaCode(address, code)
 	return
 }
 

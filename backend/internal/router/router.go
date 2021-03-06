@@ -22,6 +22,7 @@ func (r *router) inject(engine *gin.Engine) {
 	engine.GET("/uuid", new(uuid.Handler).UUID())
 	engine.GET("/captcha/image/:uuid", new(captcha.Handler).Image())
 	engine.POST("/captcha/email", new(captcha.Handler).Email())
+	engine.POST("/captcha/phone", new(captcha.Handler).Phone())
 }
 
 func New() (engine *gin.Engine) {

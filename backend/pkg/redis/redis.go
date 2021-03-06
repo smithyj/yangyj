@@ -49,7 +49,7 @@ func init() {
 	Redis = client
 }
 
-func New(cfg *configs.RedisConfig) (client *Client, err error) {
+func New(cfg *configs.RedisItemConfig) (client *Client, err error) {
 	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%v", cfg.Host, cfg.Port),
