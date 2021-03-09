@@ -55,7 +55,7 @@ func (c *redisCache) Del(keys ...string) (ok bool) {
 
 func newRedisCache() (cache *redisCache, err error) {
 	var client *redis.Client
-	redisCfg := config.Config.Redis.Cache
+	redisCfg := config.Config.Redis["cache"]
 	cacheCfg := config.Config.Cache
 	if client, err = redis.New(&redisCfg); err != nil {
 		return

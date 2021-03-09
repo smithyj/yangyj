@@ -41,7 +41,7 @@ func (c *Client) Del(keys ...string) *redis.IntCmd {
 }
 
 func init() {
-	cfg := config.Config.Redis.Default
+	cfg := config.Config.Redis["default"]
 	client, err := New(&cfg)
 	if err != nil {
 		panic(err)
@@ -49,7 +49,7 @@ func init() {
 	Redis = client
 }
 
-func New(cfg *configs.RedisItemConfig) (client *Client, err error) {
+func New(cfg *configs.RedisConfig) (client *Client, err error) {
 	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%v", cfg.Host, cfg.Port),

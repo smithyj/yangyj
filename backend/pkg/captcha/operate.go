@@ -11,6 +11,7 @@ import (
 type operate struct {
 	expired int
 	prefix  string
+	skipVerify bool
 }
 
 func (v *operate) buildKey(key string) string {
@@ -38,6 +39,9 @@ func (v *operate) del(id string) (num int64, ok bool) {
 func (v *operate) verify(id, code string) (ok bool) {
 	var err error
 	var value string
+	if v.skipVerify {
+		return true
+	}
 	if value, err = redis.Redis.Get(v.buildKey(id)).Result(); err != nil {
 		return
 	}
@@ -54,5 +58,6 @@ func newOperate() *operate {
 	return &operate{
 		expired: cfg.Expired,
 		prefix:  cfg.Prefix,
+		skipVerify:  cfg.SkipVerify,
 	}
 }

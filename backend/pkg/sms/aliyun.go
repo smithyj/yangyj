@@ -15,7 +15,7 @@ type aliyun struct {
 }
 
 func (s *aliyun) send(request *dysmsapi.SendSmsRequest) (err error) {
-	cfg := config.Config.Sms.Aliyun
+	cfg := config.Config.Sms.Platform.Aliyun
 	client, err := dysmsapi.NewClientWithAccessKey("cn-hangzhou", cfg.Appid, cfg.Appsecret)
 	if err != nil {
 		return
@@ -56,10 +56,13 @@ func (s *aliyun) CaptchaCode(phone, code string) (err error) {
 	if err != nil {
 		return
 	}
-	tpl := ALIYUN_CAPTCHACODE_TPL
+	cfg, ok := config.Config.Sms.Template.CaptchaCode["aliyun"]
+	if !ok {
+		return errors.New("阿里云验证码配置不存在")
+	}
+	tpl := cfg.Zh
 	if s.countryNo != "86" {
-		tpl = ALIYUN_CAPTCHACODE_EN_TPL
-
+		tpl = cfg.En
 	}
 	tpls := strings.Split(tpl, ",")
 	singName := tpls[0]

@@ -9,7 +9,7 @@ type Config struct {
 	Mode    string
 	Port    int
 	Db      DbConfig
-	Redis   RedisConfig
+	Redis   map[string]RedisConfig
 	Cache   CacheConfig
 	Captcha CaptchaConfig
 	Email   []EmailConfig
@@ -21,11 +21,6 @@ type DbConfig struct {
 }
 
 type RedisConfig struct {
-	Default RedisItemConfig
-	Cache   RedisItemConfig
-}
-
-type RedisItemConfig struct {
 	Host   string
 	Port   int
 	Pwd    string
@@ -39,8 +34,9 @@ type CacheConfig struct {
 }
 
 type CaptchaConfig struct {
-	Expired int // 分钟
-	Prefix  string
+	Expired    int // 分钟
+	Prefix     string
+	SkipVerify bool `yaml:"skip_verify"`
 }
 
 type EmailConfig struct {
@@ -51,13 +47,23 @@ type EmailConfig struct {
 }
 
 type SmsConfig struct {
-	Kind string
-	Smsbao  struct {
-		Username string
-		Password string
+	Kind     string
+	Platform struct {
+		Smsbao struct {
+			Username string
+			Password string
+		}
+		Aliyun struct {
+			Appid     string
+			Appsecret string
+		}
 	}
-	Aliyun struct {
-		Appid     string
-		Appsecret string
+	Template struct {
+		CaptchaCode map[string]SmsTemplateConfig `yaml:"captcha_code"`
 	}
+}
+
+type SmsTemplateConfig struct {
+	Zh string
+	En string
 }

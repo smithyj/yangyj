@@ -23,7 +23,7 @@ type smsbao struct {
 }
 
 func (s *smsbao) send(phone, content string) error {
-	cfg := config.Config.Sms.Smsbao
+	cfg := config.Config.Sms.Platform.Smsbao
 	baseUrl := "https://api.smsbao.com/sms"
 	// 国际手机号码
 	if s.countryNo != "86" {
@@ -54,9 +54,13 @@ func (s *smsbao) send(phone, content string) error {
 
 func (s *smsbao) CaptchaCode(phone, code string) (err error) {
 	expired := config.Config.Captcha.Expired
-	content := fmt.Sprintf(SMSBAO_CAPTCHACODE_TPL, code, expired)
+	cfg, ok := config.Config.Sms.Template.CaptchaCode["smsbao"]
+	if !ok {
+		return errors.New("短信宝验证码配置不存在")
+	}
+	content := fmt.Sprintf(cfg.Zh, code, expired)
 	if s.countryNo != "86" {
-		content = fmt.Sprintf(SMSBAO_CAPTCHACODE_EN_TPL, code, expired)
+		content = fmt.Sprintf(cfg.En, code, expired)
 	}
 	return s.send(phone, content)
 }
