@@ -39,8 +39,8 @@ sms: # 短信配置
   template: # 短信模板配置
     captcha_code: # 验证码模板
       smsbao: # 短信宝模板，将你的短信内容直接写在这里即可
-        zh: 【YANGYJ】您的验证码：%v，%v分钟内有效，请勿泄露给他人！
-        en: 【YANGYJ】Your code is：%v, valid for %v minutes, do not disclose it to others！
+        zh: 【YANGYJ】验证码：%v，%v分钟内有效，请勿泄露给他人！
+        en: 【YANGYJ】Captcha：%v, valid for %v minutes, do not disclose it to others！
       aliyun: # 阿里云模板，逗号分隔，签名在前，模板在后
         zh: YANGYJ,SMS_190095340
         en: YANGYJ,SMS_212471167
