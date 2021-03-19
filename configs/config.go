@@ -42,6 +42,7 @@ type CaptchaConfig struct {
 type EmailConfig struct {
 	Host     string
 	Port     int
+	Name     string
 	Username string
 	Password string
 }

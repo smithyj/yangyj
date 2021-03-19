@@ -16,7 +16,11 @@ func (e *Email) send(mails ...*gomail.Message) (err error) {
 
 	var m = make([]*gomail.Message, len(mails))
 	for i, v := range mails {
-		v.SetHeader("From", cfg.Username)
+		from := cfg.Username
+		if cfg.Name != "" {
+			from = fmt.Sprintf("%v<%v>", cfg.Name, cfg.Username)
+		}
+		v.SetHeader("From", from)
 		m[i] = v
 	}
 
@@ -31,9 +35,9 @@ func New() *Email {
 func (e *Email) CaptchaCode(address, code string) (err error) {
 	m := gomail.NewMessage()
 	m.SetHeader("To", address)
-	m.SetHeader("Subject", "【YANGYJ】邮箱验证码")
+	m.SetHeader("Subject", fmt.Sprintf("验证码: %v", code))
 	expired := config.Config.Captcha.Expired
-	body := fmt.Sprintf("验证码: <span style='color:red'>%v</span>，%v分钟内有效，请勿泄露给他人！", code, expired)
+	body := fmt.Sprintf("%v分钟内有效，请勿泄露给他人！", expired)
 	m.SetBody("text/html", body)
 
 	return e.send(m)

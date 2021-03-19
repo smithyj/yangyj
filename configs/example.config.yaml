@@ -25,6 +25,7 @@ captcha: # 验证码配置
 email: # 邮件配置，支持多个
   - host: smtp.exmail.qq.com
     port: 25
+    name: YANGYj
     username: xxx@xxx.com
     password: xxx
 sms: # 短信配置

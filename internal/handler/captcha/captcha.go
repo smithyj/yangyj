@@ -53,7 +53,7 @@ func (handler *Handler) Email() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var err error
 		var req = struct {
-			Email string `json:"address" binding:"required,email"`
+			Email string `json:"email" binding:"required,email"`
 			UUID string `json:"uuid" binding:"required,uuid"`
 			Code string `json:"code" binding:"required,len=6"`
 		}{}
