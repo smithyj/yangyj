@@ -4,7 +4,8 @@
 # Dev
 air.log
 tmp
+http
 
 # Project
-backend/configs/*.yaml
-!example.config.yaml
+configs/*.yaml
+!configs/example.config.yaml

@@ -1,6 +1,7 @@
 // 获取UUID
 GET {{host}}/uuid
 Accept: application/json
+Accept-Language: zh
 
 ###
 
@@ -27,8 +28,8 @@ POST {{host}}/captcha/phone
 Content-Type: application/json
 
 {
-  "country_no": "852",
-  "phone": "59413002",
+  "country_no": "86",
+  "phone": "18179612275",
   "uuid": "9018af45-35c3-4f81-a2bb-b1517bd0653a",
   "code": "FMp2sd"
 }
