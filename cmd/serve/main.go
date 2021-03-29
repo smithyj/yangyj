@@ -10,6 +10,8 @@ import (
 	"time"
 	"yangyj/internal/router"
 	"yangyj/pkg/config"
+	"yangyj/pkg/i18n"
+
 	// 初始化
 	_ "yangyj/pkg/sys"
 )
@@ -17,7 +19,9 @@ import (
 func main() {
 	addr := fmt.Sprintf("localhost:%v", config.Config.Port)
 
-	log.Printf("Listening to %s\n", addr)
+	log.Println(i18n.Trans(&i18n.Options{
+		ID: "app.listening",
+	}), addr)
 
 	log.Println(config.Config)
 
@@ -37,12 +41,18 @@ func main() {
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	log.Println("Shutdown Server ...")
+	log.Println(i18n.Trans(&i18n.Options{
+		ID: "app.shutdown",
+	}))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server Shutdown:", err)
+		log.Fatal(i18n.Trans(&i18n.Options{
+			ID: "app.shutdown",
+		}), err)
 	}
-	log.Println("Server exiting")
+	log.Println(i18n.Trans(&i18n.Options{
+		ID: "app.exit",
+	}))
 }

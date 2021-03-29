@@ -1,5 +1,6 @@
 mode: debug # 运行模式，release / debug
 port: 8080 # 运行端口
+lang: en # 默认语言
 db: # Db 配置
   dsn: root:123456@tcp(127.0.0.1:3306)/yangyj?charset=utf8mb4&parseTime=True&loc=Local
 redis: # Redis 配置
