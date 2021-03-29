@@ -14,7 +14,7 @@ type cache interface {
 
 var Cache cache
 
-func init() {
+func InitCache() {
 	var err error
 	var c *redisCache
 	cfg := config.Config.Cache

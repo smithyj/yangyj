@@ -40,7 +40,7 @@ func (c *Client) Del(keys ...string) *redis.IntCmd {
 	return c.client.Del(c.ctx, tmp...)
 }
 
-func init() {
+func InitRedis() {
 	cfg := config.Config.Redis["default"]
 	client, err := New(&cfg)
 	if err != nil {

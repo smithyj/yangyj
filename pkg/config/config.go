@@ -11,7 +11,7 @@ type config configs.Config
 
 var Config *config
 
-func init() {
+func InitConfig() {
 	var err error
 	var byteSlice []byte
 	env := os.Getenv("ENV")

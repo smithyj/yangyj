@@ -1,12 +1,16 @@
 package sys
 
 import (
-	// 初始化
-	_ "yangyj/pkg/cache"
-	_ "yangyj/pkg/config"
-	_ "yangyj/pkg/redis"
+	"yangyj/pkg/cache"
+	"yangyj/pkg/config"
+	"yangyj/pkg/redis"
 )
 
 func init() {
-	// 初始化
+	// 配置
+	config.InitConfig()
+	// Redis
+	redis.InitRedis()
+	// Cache
+	cache.InitCache()
 }
