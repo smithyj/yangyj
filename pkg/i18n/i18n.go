@@ -12,7 +12,7 @@ import (
 
 var locales map[string]map[string]string
 
-type Options struct {
+type Option struct {
 	ID string
 	Default string
 	Params []interface{}
@@ -61,7 +61,7 @@ func InitLang()  {
 	}
 }
 
-func Trans(option *Options) (message string) {
+func Trans(option *Option) (message string) {
 	var locale map[string]string
 	ok := false
 	message = option.Default
