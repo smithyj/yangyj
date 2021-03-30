@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"yangyj/internal/handler/captcha"
 	"yangyj/internal/handler/uuid"
+	"yangyj/internal/middleware"
 	"yangyj/pkg/config"
 )
 
@@ -14,6 +15,7 @@ func (r *router) init() (engine *gin.Engine) {
 	engine = gin.New()
 	engine.Use(gin.Logger())
 	engine.Use(gin.Recovery())
+	engine.Use(middleware.Recovery())
 	r.inject(engine)
 	return
 }

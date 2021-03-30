@@ -1,3 +1,6 @@
 app.listening: 服务运行中
 app.shutdown: 服务关闭中...
 app.exit: 服务已退出
+app.success: 成功
+app.error: 失败
+app.params.invalid: 参数错误
