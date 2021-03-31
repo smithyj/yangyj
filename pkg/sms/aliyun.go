@@ -11,7 +11,7 @@ import (
 )
 
 type aliyun struct {
-	countryNo string
+	countryCode string
 }
 
 func (s *aliyun) send(request *dysmsapi.SendSmsRequest) (err error) {
@@ -32,8 +32,8 @@ func (s *aliyun) send(request *dysmsapi.SendSmsRequest) (err error) {
 }
 
 func (s *aliyun) buildRequest(signName, phone, tplCode, tplParam string) *dysmsapi.SendSmsRequest {
-	if s.countryNo != "86" {
-		phone = url.QueryEscape(fmt.Sprintf("%v%v", s.countryNo, phone))
+	if s.countryCode != "86" {
+		phone = url.QueryEscape(fmt.Sprintf("%v%v", s.countryCode, phone))
 	}
 
 	request := dysmsapi.CreateSendSmsRequest()
@@ -61,7 +61,7 @@ func (s *aliyun) CaptchaCode(phone, code string) (err error) {
 		return errors.New("阿里云验证码配置不存在")
 	}
 	tpl := cfg.Zh
-	if s.countryNo != "86" {
+	if s.countryCode != "86" {
 		tpl = cfg.En
 	}
 	tpls := strings.Split(tpl, ",")

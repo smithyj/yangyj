@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func FilterCountryNo(s string) string {
+func FilterCountryCode(s string) string {
 	// 过滤前置无效字符
 	for {
 		c := s[:1]

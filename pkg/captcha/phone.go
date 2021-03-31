@@ -7,12 +7,12 @@ import (
 )
 
 type phoneCaptcha struct {
-	countryNo string
+	countryCode string
 	captcha *captcha
 }
 
 func (c *phoneCaptcha) buildKey(key string) string {
-	return fmt.Sprintf("mobile:%v%v", c.countryNo, key)
+	return fmt.Sprintf("mobile:%v%v", c.countryCode, key)
 }
 
 // 创建手机验证码
@@ -23,7 +23,7 @@ func (c *phoneCaptcha) Create(phone string) (err error) {
 	if err = c.captcha.create(c.buildKey(phone), code); err != nil {
 		return
 	}
-	s, err := sms.New(c.countryNo)
+	s, err := sms.New(c.countryCode)
 	if err != nil {
 		return
 	}
@@ -38,9 +38,9 @@ func (c *phoneCaptcha) Verify(phone, code string) (ok bool) {
 	return c.captcha.verify(c.buildKey(phone), code)
 }
 
-func NewPhoneCaptcha(countryNo string) *phoneCaptcha {
+func NewPhoneCaptcha(countryCode string) *phoneCaptcha {
 	return &phoneCaptcha{
-		countryNo: helper.FilterCountryNo(countryNo),
+		countryCode: helper.FilterCountryCode(countryCode),
 		captcha:   newCaptcha(),
 	}
 }

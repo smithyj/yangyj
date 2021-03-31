@@ -43,7 +43,7 @@ func (handler *Handler) Image() gin.HandlerFunc {
 		if err = png.Encode(ctx.Writer, img); err != nil {
 			handler.JSON(ctx, http.StatusInternalServerError, gin.H{
 				"code": e.ERROR,
-				"message": err.Error(),
+				"msg": err.Error(),
 			})
 			return
 		}
@@ -61,7 +61,7 @@ func (handler *Handler) Email() gin.HandlerFunc {
 		if err = ctx.ShouldBindJSON(&req); err != nil {
 			handler.JSON(ctx, http.StatusBadRequest, gin.H{
 				"code":    e.PARAMS_INVALID,
-				"message": err.Error(),
+				"msg": err.Error(),
 			})
 			return
 		}
@@ -76,7 +76,7 @@ func (handler *Handler) Email() gin.HandlerFunc {
 		if err = emailCaptcha.Create(req.Email); err != nil {
 			handler.JSON(ctx, http.StatusInternalServerError, gin.H{
 				"code":    e.ERROR,
-				"message": err.Error(),
+				"msg": err.Error(),
 			})
 			return
 		}
@@ -90,7 +90,7 @@ func (handler *Handler) Phone() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var err error
 		var req = struct {
-			CountryNo string `json:"country_no" binding:"required"`
+			CountryCode string `json:"country_code" binding:"required"`
 			Phone string `json:"phone" binding:"required"`
 			UUID string `json:"uuid" binding:"required,uuid"`
 			Code string `json:"code" binding:"required,len=6"`
@@ -98,7 +98,7 @@ func (handler *Handler) Phone() gin.HandlerFunc {
 		if err = ctx.ShouldBindJSON(&req); err != nil {
 			handler.JSON(ctx, http.StatusBadRequest, gin.H{
 				"code":    e.PARAMS_INVALID,
-				"message": err.Error(),
+				"msg": err.Error(),
 			})
 			return
 		}
@@ -110,11 +110,11 @@ func (handler *Handler) Phone() gin.HandlerFunc {
 			return
 		}
 
-		phoneCaptcha := captcha.NewPhoneCaptcha(req.CountryNo)
+		phoneCaptcha := captcha.NewPhoneCaptcha(req.CountryCode)
 		if err = phoneCaptcha.Create(req.Phone); err != nil {
 			handler.JSON(ctx, http.StatusInternalServerError, gin.H{
 				"code":    e.ERROR,
-				"message": err.Error(),
+				"msg": err.Error(),
 			})
 			return
 		}

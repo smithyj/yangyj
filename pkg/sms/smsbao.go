@@ -19,16 +19,16 @@ var smsbaoErr = map[string]string{
 }
 
 type smsbao struct {
-	countryNo string
+	countryCode string
 }
 
 func (s *smsbao) send(phone, content string) error {
 	cfg := config.Config.Sms.Platform.Smsbao
 	baseUrl := "https://api.smsbao.com/sms"
 	// 国际手机号码
-	if s.countryNo != "86" {
+	if s.countryCode != "86" {
 		baseUrl = "https://api.smsbao.com/wsms"
-		phone = url.QueryEscape(fmt.Sprintf("+%v%v", s.countryNo, phone))
+		phone = url.QueryEscape(fmt.Sprintf("+%v%v", s.countryCode, phone))
 	}
 	content = url.QueryEscape(content)
 	pwd := fmt.Sprintf("%x", md5.Sum([]byte(cfg.Password)))
@@ -59,7 +59,7 @@ func (s *smsbao) CaptchaCode(phone, code string) (err error) {
 		return errors.New("短信宝验证码配置不存在")
 	}
 	content := fmt.Sprintf(cfg.Zh, code, expired)
-	if s.countryNo != "86" {
+	if s.countryCode != "86" {
 		content = fmt.Sprintf(cfg.En, code, expired)
 	}
 	return s.send(phone, content)

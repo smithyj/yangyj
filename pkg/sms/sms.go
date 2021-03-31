@@ -10,18 +10,18 @@ type Sms interface {
 	CaptchaCode(phone, code string) (err error)
 }
 
-func New(countryNo string) (s Sms, err error) {
-	countryNo = helper.FilterCountryNo(countryNo)
+func New(countryCode string) (s Sms, err error) {
+	countryCode = helper.FilterCountryCode(countryCode)
 
 	kind := config.Config.Sms.Kind
 	switch kind {
 	case "smsbao":
 		s = &smsbao{
-			countryNo: countryNo,
+			countryCode: countryCode,
 		}
 	case "aliyun":
 		s = &aliyun{
-			countryNo: countryNo,
+			countryCode: countryCode,
 		}
 	default:
 		err = errors.New("Unknown sms kind")
