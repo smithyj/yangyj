@@ -15,6 +15,13 @@ func Recovery() gin.HandlerFunc {
 				msg := e.I18NMsg(ctx.GetHeader("Accept-Language"), code)
 				data := gin.H{}
 				switch err.(type) {
+				case string:
+					msg = err.(string)
+				case int:
+					code = err.(int)
+					msg = e.I18NMsg(ctx.GetHeader("Accept-Language"), code)
+				case error:
+					msg = err.(error).Error()
 				case *e.Error:
 					eErr := err.(*e.Error)
 					if eErr.Status != 0 {
@@ -43,13 +50,6 @@ func Recovery() gin.HandlerFunc {
 					if len(eErr.Data) > 0 {
 						data = eErr.Data
 					}
-				case string:
-					msg = err.(string)
-				case int:
-					code = err.(int)
-					msg = e.I18NMsg(ctx.GetHeader("Accept-Language"), code)
-				case error:
-					msg = err.(error).Error()
 				}
 				obj := gin.H{
 					"code": code,
@@ -57,9 +57,7 @@ func Recovery() gin.HandlerFunc {
 				if msg != "" {
 					obj["msg"] = msg
 				}
-				if len(data) > 0 {
-					obj["data"] = data
-				}
+				obj["data"] = data
 				ctx.JSON(status, obj)
 			}
 		}()
