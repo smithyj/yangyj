@@ -3,6 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"reflect"
 	"yangyj/pkg/e"
 )
 
@@ -57,7 +58,9 @@ func Recovery() gin.HandlerFunc {
 				if msg != "" {
 					obj["msg"] = msg
 				}
-				obj["data"] = data
+				if reflect.TypeOf(data).NumField() > 1 {
+					obj["data"] = data
+				}
 				ctx.JSON(status, obj)
 			}
 		}()

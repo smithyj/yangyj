@@ -6,10 +6,10 @@ import (
 )
 
 type Error struct {
-	Status  int
-	Code    int
-	Msg string
-	Data    gin.H
+	Status int
+	Code   int
+	Msg    string
+	Data   gin.H
 }
 
 func (e *Error) Error() string {

@@ -39,4 +39,3 @@ func NewEmailCaptcha() *emailCaptcha {
 		captcha: newCaptcha(),
 	}
 }
-

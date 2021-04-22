@@ -8,7 +8,7 @@ import (
 
 type phoneCaptcha struct {
 	countryCode string
-	captcha *captcha
+	captcha     *captcha
 }
 
 func (c *phoneCaptcha) buildKey(key string) string {
@@ -41,7 +41,6 @@ func (c *phoneCaptcha) Verify(phone, code string) (ok bool) {
 func NewPhoneCaptcha(countryCode string) *phoneCaptcha {
 	return &phoneCaptcha{
 		countryCode: helper.FilterCountryCode(countryCode),
-		captcha:   newCaptcha(),
+		captcha:     newCaptcha(),
 	}
 }
-

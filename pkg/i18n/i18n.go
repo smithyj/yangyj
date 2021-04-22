@@ -13,13 +13,13 @@ import (
 var locales map[string]map[string]string
 
 type Option struct {
-	ID string
+	ID      string
 	Default string
-	Params []interface{}
-	Lang string
+	Params  []interface{}
+	Lang    string
 }
 
-func InitLang()  {
+func InitLang() {
 	var err error
 	var dirs []fs.DirEntry
 	baseDir := "lang"

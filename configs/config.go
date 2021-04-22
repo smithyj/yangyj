@@ -8,7 +8,7 @@ var FS embed.FS
 type Config struct {
 	Mode    string
 	Port    int
-	Lang	string
+	Lang    string
 	Db      DbConfig
 	Redis   map[string]RedisConfig
 	Cache   CacheConfig

@@ -1,9 +1,7 @@
-package router
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"yangyj/internal/handler/captcha"
-	"yangyj/internal/handler/uuid"
 	"yangyj/internal/middleware"
 	"yangyj/pkg/config"
 )
@@ -21,13 +19,12 @@ func (r *router) init() (engine *gin.Engine) {
 }
 
 func (r *router) inject(engine *gin.Engine) {
-	engine.GET("/uuid", new(uuid.Handler).UUID())
-	engine.GET("/captcha/image/:uuid", new(captcha.Handler).Image())
-	engine.POST("/captcha/email", new(captcha.Handler).Email())
-	engine.POST("/captcha/phone", new(captcha.Handler).Phone())
+	engine.GET("/captcha/image", new(CaptchaHandler).Image())
+	engine.POST("/captcha/email", new(CaptchaHandler).Email())
+	engine.POST("/captcha/phone", new(CaptchaHandler).Phone())
 }
 
-func New() (engine *gin.Engine) {
+func Router() (engine *gin.Engine) {
 	engine = new(router).init()
 	return
 }

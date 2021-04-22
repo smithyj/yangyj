@@ -17,7 +17,7 @@ func I18NMsg(lang string, code int) string {
 		id = codeMap[ERROR]
 	}
 	return i18n.Trans(&i18n.Option{
-		ID: id,
+		ID:   id,
 		Lang: lang,
 	})
 }

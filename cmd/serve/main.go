@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"yangyj/internal/router"
+	"yangyj/internal/handler"
 	"yangyj/pkg/config"
 	"yangyj/pkg/i18n"
 
@@ -27,7 +27,7 @@ func main() {
 
 	srv := &http.Server{
 		Addr:    addr,
-		Handler: router.New(),
+		Handler: handler.Router(),
 	}
 
 	go func() {

@@ -59,4 +59,3 @@ func NewImageCaptcha() *imageCaptcha {
 		captcha: newCaptcha(),
 	}
 }
-

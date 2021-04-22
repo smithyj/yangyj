@@ -9,8 +9,8 @@ import (
 )
 
 type captcha struct {
-	expired int
-	prefix  string
+	expired    int
+	prefix     string
 	skipVerify bool
 }
 
@@ -56,8 +56,8 @@ func (v *captcha) verify(id, code string) (ok bool) {
 func newCaptcha() *captcha {
 	cfg := config.Config.Captcha
 	return &captcha{
-		expired: cfg.Expired,
-		prefix:  cfg.Prefix,
-		skipVerify:  cfg.SkipVerify,
+		expired:    cfg.Expired,
+		prefix:     cfg.Prefix,
+		skipVerify: cfg.SkipVerify,
 	}
 }

@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-
 // 随机生成字符串
 //
 // kind = 0, 数字
@@ -34,7 +33,7 @@ func RandomStr(size int, kind int) string {
 			ikind = rand.Intn(3)
 		}
 		scope, base := fontKinds[ikind][0], fontKinds[ikind][1]
-		result = append(result, uint8(base + rand.Intn(scope)))
+		result = append(result, uint8(base+rand.Intn(scope)))
 	}
 	return string(result)
 }

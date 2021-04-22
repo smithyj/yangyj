@@ -8,7 +8,7 @@ import (
 	"yangyj/pkg/config"
 )
 
-type Email struct {}
+type Email struct{}
 
 func (e *Email) send(mails ...*gomail.Message) (err error) {
 	mailConfig := config.Config.Email
