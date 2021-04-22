@@ -1,2 +1,2 @@
 run-dev:
-	ENV=dev ./scripts/run.sh
+	./scripts/run.sh

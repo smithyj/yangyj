@@ -1,9 +1,8 @@
 package config
 
 import (
-	"fmt"
+	"flag"
 	"gopkg.in/yaml.v2"
-	"os"
 	"yangyj/configs"
 )
 
@@ -13,18 +12,14 @@ var Config *config
 
 func InitConfig() {
 	var err error
-	var byteSlice []byte
-	env := os.Getenv("ENV")
-	filename := "config"
-	ext := "yaml"
-	if env != "" {
-		filename = fmt.Sprintf("%s_%s", filename, env)
-	}
-	filename = fmt.Sprintf("%s.%s", filename, ext)
-	if byteSlice, err = configs.FS.ReadFile(filename); err != nil {
+	var buf []byte
+	var filename string
+	flag.StringVar(&filename, "f", "config.yaml", "程序配置文件")
+	flag.Parse()
+	if buf, err = configs.FS.ReadFile(filename); err != nil {
 		panic(err)
 	}
-	if err = yaml.Unmarshal(byteSlice, &Config); err != nil {
+	if err = yaml.Unmarshal(buf, &Config); err != nil {
 		panic(err)
 	}
 }
